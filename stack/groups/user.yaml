@@ -1,0 +1,13 @@
+defaults:
+  rsa_public_key: ""
+  rsa_public_key_2: ""
+  # default_warehouse: WH_DEMO
+
+entries:
+  - username: user2_engineer
+    email: user2_engineer@phdata.io
+    password: "logmein"
+    
+  - username: user1_analyst
+    email: user1_analyst@phdata.io
+    password: "logmein"

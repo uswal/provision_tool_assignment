@@ -1,0 +1,37 @@
+template:
+  path: project-member.yaml
+
+entries:
+  - project: db_demo
+    env: dev
+    username: user2_engineer
+    access: RW
+    src: 
+      - client
+      - host
+
+
+  - project: db_demo
+    env: prod
+    username: user2_engineer
+    access: RW
+    src: 
+      - client
+      - host
+
+  - project: db_demo
+    env: dev
+    username: user1_analyst
+    access: RO
+    src: 
+      - client
+      - host
+
+  - project: db_demo
+    env: prod
+    username: user1_analyst
+    access: RO
+    src: 
+      - client
+      - host
+    

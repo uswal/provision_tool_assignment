@@ -1,0 +1,23 @@
+# Creates projects
+defaults:
+  warehouse_size: XSMALL
+
+entries:
+  - project_name: DB_DEMO
+    env: dev
+    src: 
+      - host
+      - client
+
+
+  - project_name: DB_DEMO
+    env: prod
+    warehouse_size: SMALL
+    src: 
+      - host
+      - client
+
+
+
+
+

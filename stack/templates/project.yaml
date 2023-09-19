@@ -1,0 +1,86 @@
+roles:
+  {% for src in src %}
+  - name: "ROLE_{{src}}_{{env}}_RW"
+  - name: "ROLE_{{src}}_{{env}}_RO"
+  {% endfor %}
+privilegeGrants: 
+  {% for src in src %}
+  - privilege: "USAGE"
+    objectType: DATABASE
+    objectName: "{{project_name}}_{{env}}"
+    roleName: "ROLE_{{src}}_{{env}}_RO"
+    grantOption: false
+  - privilege: "USAGE"
+    objectType: DATABASE
+    objectName: "{{project_name}}_{{env}}"
+    roleName: "ROLE_{{src}}_{{env}}_RW"
+    grantOption: false
+  - privilege: "USAGE"
+    objectType: "all schemas in database"
+    objectName: "{{project_name}}_{{env}}"
+    roleName: "ROLE_{{src}}_{{env}}_RO"
+    grantOption: false
+  - privilege: "ALL PRIVILEGES"
+    objectType: SCHEMA
+    objectName: "{{project_name}}_{{env}}.RAW_{{src}}"
+    roleName: "ROLE_{{src}}_{{env}}_RW"
+  - privilege: "ALL PRIVILEGES"
+    objectType: SCHEMA
+    objectName: "{{project_name}}_{{env}}.STAGE_{{src}}"
+    roleName: "ROLE_{{src}}_{{env}}_RW"
+  - privilege: "ALL PRIVILEGES"
+    objectType: SCHEMA
+    objectName: "{{project_name}}_{{env}}.MODEL_{{src}}"
+    roleName: "ROLE_{{src}}_{{env}}_RW"
+    grantOption: false 
+  - privilege: "SELECT"
+    objectType: "future tables in schema"
+    objectName: "{{project_name}}_{{env}}.RAW_{{src}}"
+    roleName: "ROLE_{{src}}_{{env}}_RO"
+  - privilege: "SELECT"
+    objectType: "future tables in schema"
+    objectName: "{{project_name}}_{{env}}.STAGE_{{src}}"
+    roleName: "ROLE_{{src}}_{{env}}_RO"
+  - privilege: "SELECT"
+    objectType: "future tables in schema"
+    objectName: "{{project_name}}_{{env}}.MODEL_{{src}}"
+    roleName: "ROLE_{{src}}_{{env}}_RO"
+  - privilege: "USAGE"
+    objectType: WAREHOUSE
+    objectName: "WH_{{env}}"
+    roleName: "ROLE_{{src}}_{{env}}_RO"
+    grantOption: false
+  - privilege: "USAGE"
+    objectType: WAREHOUSE
+    objectName: "WH_{{env}}"
+    roleName: "ROLE_{{src}}_{{env}}_RW"
+    grantOption: false
+  - privilege: "OPERATE"
+    objectType: WAREHOUSE
+    objectName: "WH_{{env}}"
+    roleName: "ROLE_{{src}}_{{env}}_RW"
+    grantOption: false
+  - privilege: "MODIFY"
+    objectType: WAREHOUSE
+    objectName: "WH_{{env}}"
+    roleName: "ROLE_{{src}}_{{env}}_RW"
+    grantOption: false
+  {% endfor %}
+databases:
+  - name: "{{project_name}}_{{env}}"
+schemas:
+  {% for src in src %}
+  - name: "RAW_{{src}}"
+    database: "{{project_name}}_{{env}}"
+  - name: "STAGE_{{src}}"
+    database: "{{project_name}}_{{env}}"
+  - name: "MODEL_{{src}}"
+    database: "{{project_name}}_{{env}}"
+  {% endfor %}
+
+warehouses:
+  - name: "WH_{{env}}"
+    properties:
+      WAREHOUSE_SIZE: "{{warehouse_size}}"
+      INITIALLY_SUSPENDED: true
+

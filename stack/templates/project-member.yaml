@@ -1,0 +1,7 @@
+
+roleGrants:
+{% for src in src %}
+  - name: ROLE_{{src}}_{{env}}_{{access}}
+    toUsers:
+      - {{username}}
+{% endfor %}
